@@ -1,5 +1,9 @@
 pipeline {
     agent any
+     tools {
+       
+       nodejs(nodeJSInstallation: 'NodeJS 12.22.9', npmVersion: '8.5.1')
+    }
 
     stages {
         stage('Checkout') {
