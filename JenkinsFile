@@ -48,7 +48,7 @@ pipeline {
         stage('Push Changes') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
+                    withCredentials([string(credentialsId: 'github-credits', variable: 'GITHUB_TOKEN')]) {
                         sh 'git config user.email "your-email@example.com"'
                         sh 'git config user.name "YourGitHubUsername"'
                         sh 'git add .'
