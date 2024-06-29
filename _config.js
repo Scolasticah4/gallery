@@ -2,10 +2,12 @@ var config = {}
 
 // Update to have your correct username and password
 config.mongoURI = {
-    production: 'mongodb+srv://Scola:DjDzNXawIbv92EJm@devops.ouaw0jj.mongodb.net/test?retryWrites=true&w=majority&appName=DevOps'
+    production: 'mongodb+srv://Admin:admin@cluster0.o6auc1a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 ,
-    development: 'mongodb+srv://Scola:DjDzNXawIbv92EJm@devops.ouaw0jj.mongodb.net/test?retryWrites=true&w=majority&appName=DevOps'
+    development: 'mongodb+srv://Admin:admin@cluster0.o6auc1a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+
 ,
-    test: 'mongodb+srv://Scola:DjDzNXawIbv92EJm@devops.ouaw0jj.mongodb.net/test?retryWrites=true&w=majority&appName=DevOps',
+    test: 'mongodb+srv://Admin:admin@cluster0.o6auc1a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+,
 };
 module.exports = config;
