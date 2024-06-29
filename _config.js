@@ -5,5 +5,5 @@ config.mongoURI = {
     production: 'mongodb+srv://Scola:<DjDzNXawIbv92EJm>@devops.ouaw0jj.mongodb.net/?retryWrites=true&w=majority&appName=DevOps',
     development: 'mongodb+srv://Scola:<DjDzNXawIbv92EJm>@devops.ouaw0jj.mongodb.net/?retryWrites=true&w=majority&appName=DevOps',
     test: 'mongodb+srv://Scola:<DjDzNXawIbv92EJm>@devops.ouaw0jj.mongodb.net/?retryWrites=true&w=majority&appName=DevOps',
-};s
+}
 module.exports = config;
