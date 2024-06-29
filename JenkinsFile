@@ -5,8 +5,9 @@ pipeline {
     }
     environment {
         GIT_SSH_COMMAND = "ssh -i ~/.ssh/id_ed25519 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
-        RENDER_API_TOKEN = credentials('Render')
+        RENDER_API_TOKEN = credentials('render-api-token')
         RENDER_APP_NAME = 'gallery'
+        GITHUB_CREDENTIALS_ID = 'github-credits' 
     }
 
     stages {
