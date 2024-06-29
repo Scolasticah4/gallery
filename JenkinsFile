@@ -1,10 +1,12 @@
 pipeline {
     agent any
-     tools {
-    nodejs 'NodeJS 12.22.9'
-}
-environment {
+    tools {
+        nodejs 'NodeJS 12.22.9'
+    }
+    environment {
         GIT_SSH_COMMAND = "ssh -i ~/.ssh/id_ed25519 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+        RENDER_API_TOKEN = credentials('Render')
+        RENDER_APP_NAME = 'gallery'
     }
 
     stages {
@@ -20,9 +22,9 @@ environment {
             }
         }
 
-        stage('Deploy to Render') {
+        stage('Build Project') {
             steps {
-                sh 'node server.js'
+                sh 'npm run build'
             }
         }
 
@@ -34,10 +36,36 @@ environment {
 
         stage('Push Changes') {
             steps {
-                gitPush branch: 'master', tags: false
+                script {
+                    sh 'git config user.email "wanjiruscola12@gmail.com"'
+                    sh 'git config user.name "Scolasticah4"'
+                    sh 'git add .'
+                    sh 'git commit -m "Update landing page for milestone 2"'
+                    sh 'git push origin master'
+                }
+            }
+        }
+
+        stage('Deploy to Render') {
+            steps {
+                script {
+                    sh """
+                    curl -X POST -H 'Authorization: Bearer ${RENDER_API_TOKEN}' \
+                        -H 'Content-Type: application/json' \
+                        -d '{"branch": "master", "env": {"NODE_ENV": "production"}}' \
+                        https://api.render.com/v1/services/${RENDER_APP_NAMElery}/deploy
+                    """
+                }
             }
         }
     }
 
-    
+    post {
+        success {
+            echo 'Deployment to Render succeeded!'
+        }
+        failure {
+            echo 'Deployment to Render failed!'
+        }
+    }
 }
