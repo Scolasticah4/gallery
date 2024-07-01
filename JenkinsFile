@@ -6,6 +6,7 @@ pipeline {
         RENDER_API_TOKEN = credentials('render-api-token')
         RENDER_APP_NAME = 'Render'
         GITHUB_TOKEN = credentials('github-credits') // Use the ID you provided for GitHub token
+        SLACK_CHANNEL = '#Slack' // Update this with your Slack channel name or ID
     }
     
     tools {
@@ -42,10 +43,14 @@ pipeline {
     
     post {
         success {
-            echo 'Deployment to Render succeeded!'
+            script {
+                slackSend(channel: "${SLACK_CHANNEL}", color: 'good', message: "Deployment to Render succeeded! Build ID: \${BUILD_NUMBER}")
+            }
         }
         failure {
-            echo 'Deployment to Render failed!'
+            script {
+                slackSend(channel: "${SLACK_CHANNEL}", color: 'danger', message: "Deployment to Render failed! Build ID: \${BUILD_NUMBER}")
+            }
         }
     }
 }
