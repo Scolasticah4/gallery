@@ -6,7 +6,8 @@ pipeline {
         RENDER_API_TOKEN = credentials('render-api-token')
         RENDER_APP_NAME = 'Render'
         GITHUB_TOKEN = credentials('github-credits') // Use the ID you provided for GitHub token
-        SLACK_CHANNEL = '#Slack' // Update this with your Slack channel name or ID
+        SLACK_CHANNEL = '#week-2-ip-1' 
+        SLACK_CREDENTIALS_ID = 'Slack'
     }
     
     tools {
