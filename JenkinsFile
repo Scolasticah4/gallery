@@ -38,8 +38,7 @@ pipeline {
                 }
             }
         }
-
- 
+    }
     
     post {
         success {
@@ -49,5 +48,4 @@ pipeline {
             echo 'Deployment to Render failed!'
         }
     }
-}
 }
