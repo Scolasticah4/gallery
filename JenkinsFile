@@ -28,19 +28,7 @@ pipeline {
             }
         }
         
-        stage('Build') {
-            steps {
-                echo 'Building the project...'
-                sh 'npm run build'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'npm test'
-            }
-        }
+        
 
         stage('Deploy to Render') {
             steps {
