@@ -46,7 +46,7 @@ pipeline {
     post {
         success {
             echo 'Deployment to Render succeeded!'
-            slackSend channel: "${SLACK_CHANNEL}", color: 'good', message: "Build succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}. Access app on https://week2ip1.onrender.com/"
+            slackSend channel: "${SLACK_CHANNEL}", color: 'good', message: "Build succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}. Access app on https://gallery-ey0u.onrender.com"
         }
         failure {
             echo 'Deployment to Render failed!'
