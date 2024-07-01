@@ -4,7 +4,7 @@ pipeline {
     environment {
         GIT_SSH_COMMAND = "ssh -i ~/.ssh/id_ed25519 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
         RENDER_API_TOKEN = credentials('render-api-token')
-        RENDER_APP_NAME = 'YourRenderAppName'
+        RENDER_APP_NAME = 'Render'
         GITHUB_TOKEN = credentials('github-credits') // Use the ID you provided for GitHub token
     }
     
@@ -41,7 +41,7 @@ pipeline {
 
         stage('Modify Landing Page') {
             steps {
-                sh 'echo "<h1>MILESTONE 2</h1>" >> index.html'
+                sh 'echo "<h1>MILESTONE 2</h1>" >> index.ejs'
             }
         }
 
