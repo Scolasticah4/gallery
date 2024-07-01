@@ -5,7 +5,7 @@ pipeline {
         GIT_SSH_COMMAND = "ssh -i ~/.ssh/id_ed25519 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
         RENDER_API_TOKEN = credentials('render-api-token')
         RENDER_APP_NAME = 'Render'
-        GITHUB_TOKEN = credentials('github-credits') // Use the ID you provided for GitHub token
+        GITHUB_TOKEN = credentials('github-credits')
         SLACK_CHANNEL = '#Scolasticah_IP1' 
         SLACK_CREDENTIALS_ID = 'Slack'
     }
@@ -43,24 +43,27 @@ pipeline {
     }
     
     post {
-    success {
-        script {
-            slackSend(
-                channel: "${SLACK_CHANNEL}",
-                color: 'good',
-                message: "Deployment to Render succeeded! Build ID: ${BUILD_NUMBER}"
-            )
+        success {
+            echo 'Deployment to Render succeeded!'
+            slackSend channel: "${SLACK_CHANNEL}", color: 'good', message: "Build succeeded: ${env.JOB_NAME} ${env.BUILD_NUMBER}. Access app on https://week2ip1.onrender.com/"
+        }
+        failure {
+            echo 'Deployment to Render failed!'
+            slackSend channel: "${SLACK_CHANNEL}", color: 'danger', message: "Build failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+        }
+        always {
+            script {
+                if (currentBuild.result == 'FAILURE') {
+                    emailext (
+                        to: "${EMAIL_RECIPIENT}",
+                        subject: "Jenkins Build Failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}",
+                        body: """
+                        <p>The Jenkins build <b>${env.JOB_NAME} ${env.BUILD_NUMBER}</b> has failed.</p>
+                        <p>Please check the Jenkins console output for more details: ${env.BUILD_URL}</p>
+                        """
+                    ) 
+                }
+            }
         }
     }
-    failure {
-        script {
-            slackSend(
-                channel: "${SLACK_CHANNEL}",
-                color: 'danger',
-                message: "Deployment to Render failed! Build ID: ${BUILD_NUMBER}"
-            )
-        }
-    }
-}
-
 }
