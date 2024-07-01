@@ -39,26 +39,7 @@ pipeline {
             }
         }
 
-        stage('Modify Landing Page') {
-            steps {
-                sh 'echo "<h1>MILESTONE 2</h1>" >> index.ejs'
-            }
-        }
-
-        stage('Push Changes') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'github-credits', variable: 'GITHUB_TOKEN')]) {
-                        sh 'git config user.email "your-email@example.com"'
-                        sh 'git config user.name "YourGitHubUsername"'
-                        sh 'git add .'
-                        sh 'git commit -m "Update landing page for milestone 2"'
-                        sh 'git push https://${GITHUB_TOKEN}@github.com/Scolasticah4/gallery.git master'
-                    }
-                }
-            }
-        }
-    }
+ 
     
     post {
         success {
@@ -68,4 +49,5 @@ pipeline {
             echo 'Deployment to Render failed!'
         }
     }
+}
 }
