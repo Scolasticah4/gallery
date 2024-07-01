@@ -43,15 +43,24 @@ pipeline {
     }
     
     post {
-        success {
-            script {
-                slackSend(channel: "${SLACK_CHANNEL}", color: 'good', message: "Deployment to Render succeeded! Build ID: \${BUILD_NUMBER}")
-            }
-        }
-        failure {
-            script {
-                slackSend(channel: "${SLACK_CHANNEL}", color: 'danger', message: "Deployment to Render failed! Build ID: \${BUILD_NUMBER}")
-            }
+    success {
+        script {
+            slackSend(
+                channel: "${SLACK_CHANNEL}",
+                color: 'good',
+                message: "Deployment to Render succeeded! Build ID: ${BUILD_NUMBER}"
+            )
         }
     }
+    failure {
+        script {
+            slackSend(
+                channel: "${SLACK_CHANNEL}",
+                color: 'danger',
+                message: "Deployment to Render failed! Build ID: ${BUILD_NUMBER}"
+            )
+        }
+    }
+}
+
 }
